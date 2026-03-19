@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⚫ END IT? · halftone · round gradient</title>
+    <title>⚫ HALFTONE · MULTITAB ⚫</title>
     <style>
         * {
             margin: 0;
@@ -22,7 +22,7 @@
             justify-content: center;
             font-family: 'Courier New', Courier, monospace;
             position: relative;
-            overflow: hidden; /* keeps the halftone edge sharp */
+            overflow: hidden;
         }
 
         /* extra halftone layer via pseudo-element → more density, round vignette */
@@ -84,27 +84,62 @@
             transform: rotate(-1deg);
         }
 
+        .button-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
         .doom-btn {
             background: transparent;
             border: 3px solid white;
             color: white;
-            font-size: 2.8rem;
+            font-size: 2rem;
             font-weight: 900;
             font-family: 'Courier New', monospace;
             text-transform: uppercase;
-            padding: 1rem 2.5rem;
+            padding: 1rem 2rem;
             border-radius: 58% 42% 48% 52% / 38% 42% 58% 62%;
             cursor: pointer;
             box-shadow: 0 0 30px rgba(255,255,255,0.5), inset 0 0 20px rgba(0,0,0,0.8);
             background: radial-gradient(circle at 30% 50%, #ffffff80 0%, #00000080 100%);
             backdrop-filter: blur(3px);
             transition: 0.2s;
-            letter-spacing: 6px;
+            letter-spacing: 4px;
             transform: scale(1);
             line-height: 1.2;
-            min-width: 280px;
+            min-width: 200px;
             text-shadow: 0 0 8px black;
-            animation: pulse 2.2s infinite alternate ease-in-out;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: 3px solid #88ccff;
+            color: #88ccff;
+            font-size: 1.8rem;
+            font-weight: 900;
+            font-family: 'Courier New', monospace;
+            text-transform: uppercase;
+            padding: 1rem 2rem;
+            border-radius: 42% 58% 52% 48% / 52% 48% 62% 38%;
+            cursor: pointer;
+            box-shadow: 0 0 30px rgba(136,204,255,0.5), inset 0 0 20px rgba(0,0,0,0.8);
+            background: radial-gradient(circle at 70% 50%, #88ccff40 0%, #00000080 100%);
+            backdrop-filter: blur(3px);
+            transition: 0.2s;
+            letter-spacing: 4px;
+            min-width: 240px;
+            text-shadow: 0 0 8px #88ccff;
+        }
+
+        .tab-btn:hover {
+            background: radial-gradient(circle at 70% 50%, #88ccffff 0%, #224466 100%);
+            box-shadow: 0 0 60px #88ccff;
+            border-color: #fff;
+            transform: scale(1.03);
+            color: white;
         }
 
         .doom-btn:hover {
@@ -116,13 +151,7 @@
             text-shadow: 0 0 5px white;
         }
 
-        /* subtle round gradient pulse */
-        @keyframes pulse {
-            0% { border-radius: 58% 42% 48% 52% / 38% 42% 58% 62%; border-width: 3px; }
-            100% { border-radius: 42% 58% 52% 48% / 52% 48% 62% 38%; border-width: 5px; }
-        }
-
-        /* extra halftone dots floating (black/white only) */
+        /* extra halftone dots floating */
         .dots {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -135,7 +164,6 @@
             opacity: 0.5;
         }
 
-        /* a second dot layer for richer halftone */
         .dots2 {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -147,7 +175,6 @@
             z-index: 6;
         }
 
-        /* small note: everything is round & halftone */
         footer {
             position: fixed;
             bottom: 12px;
@@ -166,150 +193,121 @@
     </style>
 </head>
 <body>
-    <!-- extra halftone overlays (white & black) -->
+    <!-- extra halftone overlays -->
     <div class="dots"></div>
     <div class="dots2"></div>
 
     <main class="card">
-        <h1>⦿ ROUND ⦿</h1>
-        <button class="doom-btn" id="endButton">end it all?</button>
+        <h1>⦿ HALFTONE ⦿</h1>
+        <div class="button-container">
+            <button class="doom-btn" id="endButton">end it?</button>
+            <button class="tab-btn" id="tabButton">⊕ open 5 tabs ⊕</button>
+        </div>
     </main>
 
-    <footer>◉ halftone · gradient · black & white ◉</footer>
+    <footer>◉ click · open tabs · explore ◉</footer>
 
     <script>
         (function() {
             'use strict';
 
-            const btn = document.getElementById('endButton');
+            const endBtn = document.getElementById('endButton');
+            const tabBtn = document.getElementById('tabButton');
 
-            // Alert constants – exactly as described
-            const ALERT_ONE = "1 r u sure yo";
-            const ALERT_TWO = "2 okay twin";
+            // Original button - keeps the alerts
+            endBtn.addEventListener('click', function() {
+                alert("1 r u sure yo");
+                alert("2 okay twin");
+            });
 
-            // How many tabs to spawn — “max tabs” in a balanced way, 
-            // but we must avoid crashing the browser instantly (and possibly losing alerts)
-            // We'll use a high number, but not astronomical: 150 tabs. 
-            // Each tab will try to push a search with a million chars.
-            const TAB_COUNT = 150;  // "max" but still conceivable for modern machines if user agrees
+            // New button that opens 5 tabs with halftone variations
+            tabBtn.addEventListener('click', function() {
+                // Array of different halftone style pages to open
+                const halftoneVariations = [
+                    {
+                        title: 'Halftone · Dots',
+                        bgStyle: 'repeating-radial-gradient(circle at 30% 30%, black 0px, black 3px, white 3px, white 8px)'
+                    },
+                    {
+                        title: 'Halftone · Lines',
+                        bgStyle: 'repeating-linear-gradient(45deg, black 0px, black 4px, white 4px, white 10px)'
+                    },
+                    {
+                        title: 'Halftone · Grid',
+                        bgStyle: 'repeating-linear-gradient(0deg, black 0px, black 2px, white 2px, white 6px), repeating-linear-gradient(90deg, black 0px, black 2px, white 2px, white 6px)'
+                    },
+                    {
+                        title: 'Halftone · Circles',
+                        bgStyle: 'repeating-radial-gradient(circle at 50% 50%, black 0px, black 4px, white 4px, white 12px)'
+                    },
+                    {
+                        title: 'Halftone · Waves',
+                        bgStyle: 'repeating-radial-gradient(ellipse at 50% 50%, black 0px, black 3px, white 3px, white 9px)'
+                    }
+                ];
 
-            // Build a million-character string (approximately)
-            function generateMillionChars() {
-                // 1 million characters = 1_000_000
-                // Use a repeating pattern to avoid huge memory in this script, 
-                // but final search string will be gigantic.
-                const base = 'X';
-                // But we need to vary a bit? not necessary, but let's create something like "q=aaaaaa..."
-                // We'll create a string with 1,000,000 'A's – that's already huge.
-                // But constructing it directly in JS may block the thread for a moment – that's part of the "overload".
-                // We'll do it efficiently with a loop.
-                
-                // But note: creating a 1M string is okay (~1 MB). Times 150 tabs = 150 MB plus overhead.
-                // We'll assemble incrementally.
-                let million = '';
-                const chunk = 'a'.repeat(10000); // 10k chars
-                for (let i = 0; i < 100; i++) { // 100 * 10k = 1,000,000
-                    million += chunk;
-                }
-                // verify length? not needed, trust approx.
-                return million;
-            }
-
-            // open a new window with a search query filled with million chars
-            function spawnOverloadTab() {
-                try {
-                    const massiveQuery = generateMillionChars(); // 1M characters
-                    // encode to put into search query – we must encode, but it will become huge (3x maybe)
-                    // use encodeURIComponent to make it URL-safe. This will increase total characters 
-                    // (since every char becomes percent-encoded if not alnum) – even better for overload.
-                    // But to keep million-chars-feel, we'll encode. But many 'a' letters remain single,
-                    // to really explode we want also special chars, but let's just keep 'a' repetition.
-                    // For extra "million characters in search", we can simply put it as a single query param.
-                    const encoded = encodeURIComponent(massiveQuery); // mostly same length if 'a's, but safe.
-                    
-                    // Build a URL with a fake domain (will show "about:blank" maybe, but we want search bar visible)
-                    // Use a made-up domain with a very long search – "https://example.com/search?q=<millionchars>"
-                    // That will appear in the URL bar, but the domain is short. The user will see massive address.
-                    const url = `https://fake-overload-xxx.com/search?q=${encoded}`;
-                    
-                    // Try to open the tab – use window.open with _blank. Some browsers might block popups,
-                    // but we are inside user click (button). They will likely allow first few, but after many they may block.
-                    // We'll use a small trick: open in same window? but spec says new tabs. We'll use _blank.
-                    // For "max tabs", we must call window.open repeatedly – but popup blockers may block after first ~10.
-                    // That's part of the overload attempt; but we also make them open with a delay to bypass? 
-                    // But description says "overload your system add max tabs, each with a million characters in the search".
-                    // We want to genuinely try. If browser blocks later ones, that's still an overload attempt.
-                    window.open(url, '_blank');
-                } catch (e) {
-                    // silent fail, we just continue
-                }
-            }
-
-            // Main button click handler
-            btn.addEventListener('click', function(event) {
-                // Prevent accidental double events, but fine.
-
-                // 1st alert
-                alert(ALERT_ONE);
-
-                // 2nd alert
-                alert(ALERT_TWO);
-
-                // Now the overload phase: open many tabs, each with massive search query
-                // To make it really heavy, we call spawnOverloadTab many times.
-                // But we must avoid freezing the main thread entirely before alerts show, so we schedule them
-                // with slight delays. That also increases chance they bypass popup prevention.
-                // Additionally, we'll add more: each tab may load a huge search string, and also we
-                // will attempt to open extra windows inside those? but no need.
-                
-                // We'll open 150 tabs, but each with small delay to avoid browser grouping. But delays also cause them not to be "simultaneous".
-                // To maximize overload, we open first 20 instantly, then the rest with minimal delays.
-                for (let i = 0; i < TAB_COUNT; i++) {
-                    // Use timeout with i*15 ms => total around 2.25 seconds for 150 tabs, not too long
+                // Open 5 new tabs
+                for (let i = 0; i < 5; i++) {
                     setTimeout(() => {
-                        spawnOverloadTab();
-                    }, i * 15);  // 15ms staggered
+                        const variation = halftoneVariations[i % halftoneVariations.length];
+                        
+                        // Create a simple HTML page as a data URL
+                        const htmlContent = `
+                            <!DOCTYPE html>
+                            <html>
+                            <head>
+                                <title>${variation.title}</title>
+                                <style>
+                                    body {
+                                        margin: 0;
+                                        min-height: 100vh;
+                                        background: ${variation.bgStyle};
+                                        background-size: 60px 60px;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        font-family: 'Courier New', monospace;
+                                    }
+                                    .message {
+                                        background: rgba(0,0,0,0.7);
+                                        color: white;
+                                        padding: 2rem 3rem;
+                                        border-radius: 30px;
+                                        border: 3px solid white;
+                                        backdrop-filter: blur(5px);
+                                        text-align: center;
+                                        box-shadow: 0 0 50px rgba(255,255,255,0.3);
+                                    }
+                                    h1 {
+                                        font-size: 2.5rem;
+                                        margin-bottom: 1rem;
+                                        letter-spacing: 4px;
+                                    }
+                                    p {
+                                        font-size: 1.2rem;
+                                        opacity: 0.8;
+                                    }
+                                </style>
+                            </head>
+                            <body>
+                                <div class="message">
+                                    <h1>⚫ ${variation.title} ⚫</h1>
+                                    <p>halftone pattern · tab ${i + 1}</p>
+                                </div>
+                            </body>
+                            </html>
+                        `;
+                        
+                        const dataUrl = 'data:text/html;charset=utf-8,' + encodeURIComponent(htmlContent);
+                        window.open(dataUrl, '_blank');
+                    }, i * 100); // Small delay between openings
                 }
-
-                // Additional heavy load: try to also create 20 iframe loads? but spec says tabs, not iframes.
-                // But we could also force a hidden heavy operation: we'll create 1000 workers? 
-                // but that would likely crash faster. But we stick to the spec: "add max tabs, each with a million characters in the search".
-                // However, browsers have protection against too many tabs. We'll also in each spawned tab try to self-open more? That would be recursive.
-                // But we can't control content of those tabs (they go to fake domain). To make each tab have a million chars *in the search*, we already did.
-                // Good enough.
-
-                // One extra twist: as the user might have popup blocker, we can also open some in the same window? 
-                // but we want tabs. we'll also try using _blank for all.
-                // also we try to replace location of current? no, we stay here.
-
-                // To further overload: we can also generate massive string and put it in location.hash, but not needed.
-
-                // And to make the current page also heavy: we can create thousands of DOM elements? but that's not required.
-                // but we want to add to the overload sensation. we'll create 10,000 divs with halftone? maybe too far.
-                // just for effect we add a hidden while loop? not safe.
-                // We'll simply rely on tab overload + search strings. 
-                // For extra assurance, each spawn also tries to open *more* tabs by themselves? that would be too much.
-                // I'll keep it as requested: 'max tabs, each with a million characters in the search'.
-
-                // Additionally: We can try to set the current window location search to million chars too (to add current tab overload).
-                // Let's do that as a bonus overload: set the current page query string to million chars.
-                try {
-                    const currentMillion = 'a'.repeat(1000000); // 1M 'a's
-                    // Change current url's search param 'overload' to that million chars – will put browser into mega-load.
-                    // But that will reload the page? we don't want to lose the script. We'll use replaceState with a massive string.
-                    // That keeps the page but makes the URL bar enormous (overload visual).
-                    const bigState = '?x=' + encodeURIComponent(currentMillion);
-                    window.history.replaceState({}, '', bigState);
-                } catch (e) {
-                    // ignore (may exceed URL length, but most modern browsers support long URLs up to ~200k? but 1M might fail)
-                    // if fails, we just skip.
-                }
-
-                // Final touch: attempt to spawn a Web Worker that keeps allocating memory, but that's hidden.
-                // I'll keep this simple but effective.
-                // Also create a hidden anchor and click it to open more? no, we already open many.
-                // And we also output a message to console (optional) that overload begins.
-                console.log('💀 initiating end-it-all overload... 💀');
+                
+                // Visual feedback on button
+                tabBtn.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    tabBtn.style.transform = 'scale(1)';
+                }, 200);
             });
         })();
     </script>
