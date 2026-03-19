@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIRO CRASHER - COPY & PASTE</title>
+    <title>VIRO CRASHER · HALFTONE SQUARE</title>
     <style>
         * {
             margin: 0;
@@ -11,187 +11,271 @@
             box-sizing: border-box;
         }
 
+        /* ––– halftone / square pattern ––– */
         body {
-            background-color: black;
-            color: white;
+            background-color: #120012; /* deep purple-black */
+            background-image: 
+                linear-gradient(45deg, rgba(180, 0, 255, 0.15) 1px, transparent 1px),
+                linear-gradient(-45deg, rgba(180, 0, 255, 0.12) 1px, transparent 1px),
+                radial-gradient(circle at 30% 40%, rgba(160, 0, 255, 0.2) 0px, transparent 25%),
+                radial-gradient(circle at 70% 80%, rgba(100, 0, 150, 0.3) 0px, transparent 35%),
+                repeating-linear-gradient(45deg, rgba(0,0,0,0.8) 0px, rgba(0,0,0,0.8) 4px, transparent 4px, transparent 8px);
+            background-size: 48px 48px, 48px 48px, 200px 200px, 300px 300px, 16px 16px;
+            background-blend-mode: overlay, overlay, screen, normal, normal;
             font-family: 'Courier New', monospace;
             min-height: 100vh;
-            padding: 20px;
+            padding: 24px;
+            color: #f0d5ff;
         }
 
+        /* main container with purple/black square grid */
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            border: 2px solid white;
-            padding: 20px;
-            background: #0a0a0a;
+            border: 3px solid #b77eff;
+            padding: 24px;
+            background: rgba(10, 0, 15, 0.82);
+            backdrop-filter: blur(1px);
+            box-shadow: 0 0 30px #a55eff, 0 0 8px #b07cff inset;
+            position: relative;
         }
 
-        /* Header */
+        /* square halftone overlay (extra texture) */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(90deg, rgba(200, 130, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(0deg, rgba(200, 130, 255, 0.1) 1px, transparent 1px);
+            background-size: 24px 24px;
+            pointer-events: none;
+        }
+
+        /* header */
         .header {
             text-align: center;
-            padding: 20px;
-            border-bottom: 3px solid white;
+            padding: 20px 10px 30px;
+            border-bottom: 4px double #b77eff;
             margin-bottom: 30px;
+            position: relative;
         }
 
         h1 {
             font-size: 5rem;
-            letter-spacing: 10px;
+            letter-spacing: 12px;
             text-transform: uppercase;
             font-weight: 900;
-            text-shadow: 0 0 10px white;
-            margin-bottom: 10px;
+            color: #f2daff;
+            text-shadow: 4px 4px 0 #6a1b9a, 8px 8px 0 #2e0036, 0 0 20px #d29eff;
+            margin-bottom: 15px;
+            word-break: break-word;
         }
 
         .warning {
             font-size: 2rem;
-            color: black;
-            background: white;
-            padding: 15px;
+            background: #21002a;
+            color: #eabaff;
+            padding: 15px 30px;
             display: inline-block;
             font-weight: bold;
-            letter-spacing: 2px;
-            box-shadow: 10px 10px 0 rgba(255,255,255,0.2);
+            letter-spacing: 3px;
+            border: 3px solid #b77eff;
+            box-shadow: 10px 10px 0 #38004d, 0 0 20px #c47eff inset;
         }
 
         .instruction {
-            margin-top: 20px;
+            margin-top: 30px;
             font-size: 1.5rem;
-            border: 2px dashed white;
-            padding: 15px;
+            border: 3px dashed #c88eff;
+            padding: 18px;
+            background: #1a001f;
         }
 
         .instruction span {
-            color: black;
-            background: white;
-            padding: 5px 10px;
+            color: #1c0022;
+            background: #dbb5ff;
+            padding: 8px 18px;
             font-weight: bold;
+            border: 2px solid #9f4eff;
         }
 
-        /* Main grid */
+        /* main grid */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 25px;
-            margin: 40px 0;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 28px;
+            margin: 50px 0 30px;
         }
 
-        /* Cards */
+        /* cards – purple/black halftone vibe */
         .card {
-            border: 2px solid white;
-            background: #111;
-            transition: all 0.3s;
+            border: 3px solid #ae71ff;
+            background: #0d0012;
+            transition: 0.15s ease-out;
+            box-shadow: 0 0 0 1px #a151ff inset, 0 10px 20px -8px black;
+            position: relative;
+            background-image: radial-gradient(circle at 70% 20%, rgba(180, 100, 255, 0.2) 0px, transparent 30%),
+                              repeating-linear-gradient(45deg, rgba(0,0,0,0.5) 0px, rgba(0,0,0,0.5) 2px, #1f002a 2px, #1f002a 6px);
         }
 
         .card:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 30px rgba(255,255,255,0.3);
+            transform: scale(1.01);
+            border-color: #ddb0ff;
+            box-shadow: 0 0 40px #b769ff, 0 0 15px #c481ff inset;
         }
 
         .card-header {
-            background: white;
-            color: black;
-            padding: 15px;
-            font-weight: bold;
-            font-size: 1.3rem;
+            background: #2f0047;
+            color: #f0dcff;
+            padding: 16px;
+            font-weight: 900;
+            font-size: 1.4rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            border-bottom: 2px solid white;
+            letter-spacing: 3px;
+            border-bottom: 4px solid #b77eff;
+            text-shadow: 0 2px 0 #4a0072;
+            word-break: break-word;
         }
 
         .card-content {
-            padding: 20px;
+            padding: 22px;
         }
 
         .preview {
-            background: black;
-            border: 1px solid #333;
-            padding: 15px;
+            background: #140019;
+            border: 3px solid #7b3eac;
+            padding: 18px;
             font-family: monospace;
             max-height: 200px;
             overflow: auto;
-            margin-bottom: 15px;
-            color: #0f0;
-            font-size: 12px;
-            line-height: 1.4;
+            margin-bottom: 20px;
+            color: #d39eff;
+            font-size: 13px;
+            line-height: 1.5;
+            box-shadow: inset 0 0 20px #33004d;
+            background-image: linear-gradient(90deg, #1d0025 1px, transparent 1px),
+                              linear-gradient(0deg, #1d0025 1px, transparent 1px);
+            background-size: 16px 16px;
         }
 
         .stats {
             display: flex;
             justify-content: space-between;
-            color: #888;
+            color: #c09aff;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            padding: 10px 5px;
+            border-top: 2px solid #734b99;
+            border-bottom: 2px solid #734b99;
+            font-weight: bold;
+        }
+
+        .size-badge {
+            background: #31004d;
+            color: #e5c3ff;
+            padding: 5px 12px;
             font-size: 0.9rem;
-            margin-bottom: 15px;
-            padding: 5px;
-            border-top: 1px solid #333;
-            border-bottom: 1px solid #333;
+            font-weight: 900;
+            border: 2px solid #b77eff;
         }
 
         .copy-btn {
             width: 100%;
-            background: black;
-            color: white;
-            border: 2px solid white;
+            background: #1e002a;
+            color: #f0d0ff;
+            border: 4px solid #b77eff;
             padding: 15px;
             font-family: 'Courier New', monospace;
-            font-size: 1.2rem;
-            font-weight: bold;
+            font-size: 1.3rem;
+            font-weight: 900;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: 0.1s linear;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 4px;
+            box-shadow: 6px 6px 0 #410063;
+            text-shadow: 0 0 8px currentColor;
         }
 
         .copy-btn:hover {
-            background: white;
-            color: black;
+            background: #5d1e8a;
+            color: #fff;
+            border-color: #f0c6ff;
+            box-shadow: 2px 2px 0 #a055ff, 0 0 20px #d9aaff;
         }
 
         .copy-btn.copied {
-            background: #00ff00;
-            color: black;
-            border-color: #00ff00;
+            background: #b200ff;
+            color: #0c0012;
+            border-color: #f2b0ff;
+            box-shadow: 0 0 40px #f2b0ff;
         }
 
-        /* Size indicator */
-        .size-badge {
-            background: #333;
-            color: white;
-            padding: 3px 8px;
-            border-radius: 0;
-            font-size: 0.8rem;
-            font-weight: bold;
+        /* quick copy row */
+        .quick-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 30px 0;
         }
 
-        /* Footer */
+        .quick-row .copy-btn {
+            padding: 22px 10px;
+            font-size: 1.1rem;
+            background: #1f002b;
+            border-width: 3px;
+        }
+
+        /* footer */
         .footer {
             margin-top: 40px;
             padding: 20px;
-            border-top: 2px solid white;
+            border-top: 4px double #ae71ff;
             text-align: center;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            font-weight: bold;
         }
 
         .footer span {
-            color: black;
-            background: white;
-            padding: 5px 10px;
+            color: #120018;
+            background: #dbb5ff;
+            padding: 8px 25px;
+            border: 2px solid #b266ff;
         }
 
-        /* Scrollbar */
+        /* scrollbar deep purple */
         ::-webkit-scrollbar {
-            width: 10px;
-            background: black;
+            width: 14px;
+            background: #1c0023;
         }
-
         ::-webkit-scrollbar-thumb {
-            background: white;
-            border: 1px solid black;
+            background: #a259ff;
+            border: 2px solid #2b003b;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1f002a;
         }
 
-        ::-webkit-scrollbar-track {
-            background: #222;
+        /* extra button for 2.html (purple) */
+        .nav-button {
+            background: #250034;
+            border: 4px solid #b77eff;
+            color: #ebc6ff;
+            font-size: 1.8rem;
+            font-weight: bold;
+            padding: 15px 40px;
+            margin: 20px auto 0;
+            display: inline-block;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 8px 8px 0 #390052;
+            transition: 0.1s;
+            font-family: inherit;
+        }
+        .nav-button:hover {
+            background: #4d1970;
+            box-shadow: 4px 4px 0 #b77eff;
+            border-color: #efc3ff;
         }
     </style>
 </head>
@@ -199,40 +283,40 @@
     <div class="container">
         <div class="header">
             <h1>VIRO CRASHER</h1>
-            <div class="warning">⚠️ SYSTEM OVERLOAD GENERATOR ⚠️</div>
+            <div class="warning">◼ HALFTONE SQUARE ◼</div>
             <div class="instruction">
-                <span>📋 COPY THIS AND PUT IT IN A SEARCH BAR! 📋</span>
+                <span>❚❚ COPY & PASTE INTO SEARCH BAR ❚❚</span>
             </div>
         </div>
 
         <div class="grid">
             <!-- RAMBLES 1 - Pure chaos text -->
             <div class="card">
-                <div class="card-header">🤪 RAMBLE MODE 1 - CHAOS</div>
+                <div class="card-header">🤪 RAMBLE MODE 1 · CHAOS</div>
                 <div class="card-content">
                     <div class="preview" id="preview1">
                         ajsdhflkajsdhf lkasjdhf lkajsdh flkajsdh flkajsdhf lka jsdhf lkajsdh f...
                     </div>
                     <div class="stats">
-                        <span>📊 Length: 2.5M chars</span>
-                        <span class="size-badge">💾 ~2.5MB</span>
+                        <span>📊 LENGTH: 2.5M chars</span>
+                        <span class="size-badge">◼ ~2.5MB</span>
                     </div>
-                    <button class="copy-btn" onclick="copyText(1)">COPY RAMBLE 1</button>
+                    <button class="copy-btn" onclick="copyText(1, this)">COPY RAMBLE 1</button>
                 </div>
             </div>
-<button onclick="window.location.href='2.html'">Go to 2.html</button>
+
             <!-- RAMBLES 2 - Keyboard mash -->
             <div class="card">
-                <div class="card-header">⌨️ RAMBLE MODE 2 - KEYBOARD MASH</div>
+                <div class="card-header">⌨️ RAMBLE MODE 2 · MASH</div>
                 <div class="card-content">
                     <div class="preview" id="preview2">
                         qwertyuiop[]asdfghjkl;'zxcvbnm,./qwertyuiop[]asdfghjkl;'zxcvbnm,./...
                     </div>
                     <div class="stats">
-                        <span>📊 Length: 2M chars</span>
-                        <span class="size-badge">💾 ~2MB</span>
+                        <span>📊 LENGTH: 2M chars</span>
+                        <span class="size-badge">◼ ~2MB</span>
                     </div>
-                    <button class="copy-btn" onclick="copyText(2)">COPY RAMBLE 2</button>
+                    <button class="copy-btn" onclick="copyText(2, this)">COPY RAMBLE 2</button>
                 </div>
             </div>
 
@@ -244,10 +328,10 @@
                         012345678901234567890123456789012345678901234567890123456789...
                     </div>
                     <div class="stats">
-                        <span>📊 Length: 2.5M chars</span>
-                        <span class="size-badge">💾 ~2.5MB</span>
+                        <span>📊 LENGTH: 2.5M chars</span>
+                        <span class="size-badge">◼ ~2.5MB</span>
                     </div>
-                    <button class="copy-btn" onclick="copyText(3)">COPY NUMBERS</button>
+                    <button class="copy-btn" onclick="copyText(3, this)">COPY NUMBERS</button>
                 </div>
             </div>
 
@@ -259,10 +343,10 @@
                         abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl...
                     </div>
                     <div class="stats">
-                        <span>📊 Length: 2M chars</span>
-                        <span class="size-badge">💾 ~2MB</span>
+                        <span>📊 LENGTH: 2M chars</span>
+                        <span class="size-badge">◼ ~2MB</span>
                     </div>
-                    <button class="copy-btn" onclick="copyText(4)">COPY LETTERS</button>
+                    <button class="copy-btn" onclick="copyText(4, this)">COPY LETTERS</button>
                 </div>
             </div>
 
@@ -274,136 +358,113 @@
                         !@#$%^&*()_+{}[]|\:;"'<>,.?/!@#$%^&*()_+{}[]|\:;"'<>,.?/...
                     </div>
                     <div class="stats">
-                        <span>📊 Length: 1.5M chars</span>
-                        <span class="size-badge">💾 ~1.5MB</span>
+                        <span>📊 LENGTH: 1.5M chars</span>
+                        <span class="size-badge">◼ ~1.5MB</span>
                     </div>
-                    <button class="copy-btn" onclick="copyText(5)">COPY SPECIAL</button>
+                    <button class="copy-btn" onclick="copyText(5, this)">COPY SPECIAL</button>
                 </div>
             </div>
 
             <!-- MEGA RAMBLE (largest) -->
             <div class="card">
-                <div class="card-header">💀 MEGA RAMBLE (9 MILLION)</div>
+                <div class="card-header">💀 MEGA RAMBLE · 9M</div>
                 <div class="card-content">
                     <div class="preview" id="preview6">
                         VIROCRASHERVIROCRASHERVIROCRASHERVIROCRASHERVIROCRASHER...
                     </div>
                     <div class="stats">
-                        <span>📊 Length: 9M chars</span>
-                        <span class="size-badge">💾 ~9MB</span>
+                        <span>📊 LENGTH: 9M chars</span>
+                        <span class="size-badge">◼ ~9MB</span>
                     </div>
-                    <button class="copy-btn" onclick="copyText(6)">COPY MEGA RAMBLE</button>
+                    <button class="copy-btn" onclick="copyText(6, this)">COPY MEGA RAMBLE</button>
                 </div>
             </div>
         </div>
 
-        <!-- Quick copy section -->
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 20px 0;">
-            <button class="copy-btn" onclick="copyText(7)" style="padding: 20px;">📋 COPY ALL RAMBLES</button>
-            <button class="copy-btn" onclick="copyText(8)" style="padding: 20px;">🔢 COPY ALL NUMBERS</button>
-            <button class="copy-btn" onclick="copyText(9)" style="padding: 20px;">📝 COPY ALL LETTERS</button>
+        <!-- quick copy row -->
+        <div class="quick-row">
+            <button class="copy-btn" onclick="copyText(7, this)">📋 COPY ALL RAMBLES</button>
+            <button class="copy-btn" onclick="copyText(8, this)">🔢 COPY ALL NUMBERS</button>
+            <button class="copy-btn" onclick="copyText(9, this)">📝 COPY ALL LETTERS</button>
+        </div>
+
+        <!-- nav to 2.html with halftone style -->
+        <div style="text-align: center; margin: 30px 0 20px;">
+            <button class="nav-button" onclick="window.location.href='2.html'">⏩ GO TO 2.HTML ⏩</button>
         </div>
 
         <div class="footer">
-            <span>⚠️ WARNING: Large amounts of text - Browser may lag ⚠️</span>
+            <span>⚠️ massive text · browser may lag ⚠️</span>
         </div>
     </div>
 
     <script>
-        // Generate different text patterns
+        // generate long patterns (same as original but with purple spirit)
         function generateText(type) {
             switch(type) {
-                case 1: // Rambles 1 - Chaos
-                    return "ajsdhf lkajsdh flkajsdh flaksjdh flaksjdhf laksjdhf laksjdhf lkajsdhf ".repeat(100000);
-                
-                case 2: // Rambles 2 - Keyboard mash
-                    return "qwertyuiop[]asdfghjkl;'zxcvbnm,./qwertyuiop[]asdfghjkl;'zxcvbnm,./".repeat(80000);
-                
-                case 3: // Numbers only
-                    return "012345678901234567890123456789012345678901234567890123456789".repeat(80000);
-                
-                case 4: // Letters only
-                    return "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz".repeat(100000);
-                
-                case 5: // Special characters
-                    return "!@#$%^&*()_+{}[]|\\:;\"'<>,.?/".repeat(100000);
-                
-                case 6: // Mega Ramble (largest)
-                    return "VIROCRASHER".repeat(1000000) + "RAMBLE".repeat(500000);
-                
-                case 7: // All rambles combined
-                    let rambles = "";
-                    for(let i = 0; i < 3; i++) {
-                        rambles += "RAMBLEMODE".repeat(500000);
-                    }
-                    return rambles;
-                
-                case 8: // All numbers combined
-                    return "9876543210".repeat(500000) + "1234567890".repeat(500000);
-                
-                case 9: // All letters combined
-                    return "ABCDEFGHIJKLMNOPQRSTUVWXYZ".repeat(400000) + "abcdefghijklmnopqrstuvwxyz".repeat(400000);
-                
-                default:
-                    return "VIRO CRASHER ";
+                case 1: return "ajsdhf lkajsdh flkajsdh flaksjdh flaksjdhf laksjdhf laksjdhf lkajsdhf ".repeat(100000);
+                case 2: return "qwertyuiop[]asdfghjkl;'zxcvbnm,./qwertyuiop[]asdfghjkl;'zxcvbnm,./".repeat(80000);
+                case 3: return "012345678901234567890123456789012345678901234567890123456789".repeat(80000);
+                case 4: return "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz".repeat(100000);
+                case 5: return "!@#$%^&*()_+{}[]|\\:;\"'<>,.?/".repeat(100000);
+                case 6: return "VIROCRASHER".repeat(1000000) + "RAMBLE".repeat(500000);
+                case 7: let r = ""; for(let i=0; i<3; i++) r += "RAMBLEMODE".repeat(500000); return r;
+                case 8: return "9876543210".repeat(500000) + "1234567890".repeat(500000);
+                case 9: return "ABCDEFGHIJKLMNOPQRSTUVWXYZ".repeat(400000) + "abcdefghijklmnopqrstuvwxyz".repeat(400000);
+                default: return "VIRO CRASHER ";
             }
         }
 
-        // Copy function
-        function copyText(type) {
+        // copy with halftone style feedback
+        function copyText(type, btnElement) {
             const text = generateText(type);
-            
-            // Create temporary textarea
             const textarea = document.createElement('textarea');
             textarea.value = text;
             textarea.style.position = 'fixed';
             textarea.style.opacity = '0';
             document.body.appendChild(textarea);
-            
-            // Select and copy
             textarea.select();
-            
+
             try {
                 document.execCommand('copy');
-                
-                // Visual feedback
-                const btn = event.target;
-                const originalText = btn.textContent;
-                btn.textContent = '✓ COPIED!';
-                btn.classList.add('copied');
-                
-                setTimeout(() => {
-                    btn.textContent = originalText;
-                    btn.classList.remove('copied');
-                }, 2000);
-                
-                // Show warning for large copies
-                if (type === 6) {
-                    alert('⚠️ 9 million characters copied! This may cause lag when pasting.');
+                if (btnElement) {
+                    const original = btnElement.textContent;
+                    btnElement.textContent = '✓ COPIED!';
+                    btnElement.classList.add('copied');
+                    setTimeout(() => {
+                        btnElement.textContent = original;
+                        btnElement.classList.remove('copied');
+                    }, 2000);
                 }
+                if (type === 6) alert('⚠️ 9 million chars — expect lag on paste');
             } catch (err) {
-                alert('Failed to copy. Browser may not support large copies.');
+                alert('copy failed, browser limitation');
             }
-            
             document.body.removeChild(textarea);
         }
 
-        // Update previews with shorter versions
+        // preview snippets (more purple preview)
         function updatePreviews() {
-            document.getElementById('preview1').textContent = generateText(1).substring(0, 200) + '...';
-            document.getElementById('preview2').textContent = generateText(2).substring(0, 200) + '...';
-            document.getElementById('preview3').textContent = generateText(3).substring(0, 200) + '...';
-            document.getElementById('preview4').textContent = generateText(4).substring(0, 200) + '...';
-            document.getElementById('preview5').textContent = generateText(5).substring(0, 200) + '...';
-            document.getElementById('preview6').textContent = generateText(6).substring(0, 200) + '...';
+            const snippets = {
+                1: generateText(1).substring(0, 180) + '…',
+                2: generateText(2).substring(0, 180) + '…',
+                3: generateText(3).substring(0, 180) + '…',
+                4: generateText(4).substring(0, 180) + '…',
+                5: generateText(5).substring(0, 180) + '…',
+                6: generateText(6).substring(0, 180) + '…'
+            };
+            document.getElementById('preview1').textContent = snippets[1];
+            document.getElementById('preview2').textContent = snippets[2];
+            document.getElementById('preview3').textContent = snippets[3];
+            document.getElementById('preview4').textContent = snippets[4];
+            document.getElementById('preview5').textContent = snippets[5];
+            document.getElementById('preview6').textContent = snippets[6];
         }
-
-        // Run preview update
         updatePreviews();
 
-        // Add console warning
-        console.log('%c⚠️ VIRO CRASHER - COPY MODE ACTIVE ⚠️', 'color: white; background: black; font-size: 20px; font-weight: bold; padding: 10px;');
-        console.log('%cClick copy buttons to get massive text for search bars', 'color: #00ff00; font-size: 14px;');
+        // purple console warning
+        console.log('%c◼ VIRO CRASHER · HALFTONE SQUARE ◼', 'background: #2e0047; color: #eabaff; font-size: 18px; padding: 6px; border: 3px solid #b77eff;');
+        console.log('%c💜 purple & black overload ready', 'color: #d6a0ff; font-weight: bold;');
     </script>
 </body>
 </html>
